@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Admin — Samandarhon & Zilolahon</title>
+<style>
+:root{--bg:#efe9dc;--ink:#3b2f2a;--soft:#7d6e62;--wine:#7a1f2b;--gold:#a98744;--ok:#3f6b3a;--card:rgba(255,252,246,.85)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--ink);font:17px/1.5 "Cormorant Garamond",Georgia,serif;min-height:100vh;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+button,input{font:inherit}
+.wrap{max-width:900px;margin:0 auto;padding:22px 16px 60px}
+h1{font-size:30px;color:var(--wine);text-align:center}
+.sub{text-align:center;color:var(--soft);margin-bottom:20px}
+#login{max-width:340px;margin:12vh auto 0;text-align:center}
+input[type=password],input[type=search]{width:100%;padding:12px 14px;border:1px solid var(--gold);background:#fff9;border-radius:4px;font-size:20px;text-align:center}
+input[type=search]{text-align:left;font-size:17px}
+.btn{background:var(--wine);color:#fff;border:0;border-radius:99px;padding:10px 22px;cursor:pointer;font-weight:600}
+.btn.alt{background:none;color:var(--wine);border:1px solid var(--wine)}
+#login .btn{margin-top:14px;width:100%}
+.err{color:#b3261e;margin-top:10px;min-height:1.4em;font-size:15px;line-height:1.35}
+button:focus-visible,input:focus-visible{outline:2px solid var(--wine);outline-offset:2px}
+#panel{display:none}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.stat{background:var(--card);border:1px solid var(--gold);padding:12px 8px;text-align:center}
+.stat b{display:block;font-size:34px;line-height:1.1;color:var(--wine)}
+.stat.ok b{color:var(--ok)}
+.stat small{color:var(--soft)}
+.bar{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;align-items:center}
+.bar input{flex:1 1 200px}
+.tabs{display:flex;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+.tabs button{background:none;border:1px solid var(--gold);color:var(--ink);border-radius:99px;padding:5px 16px;cursor:pointer}
+.tabs button[aria-pressed=true]{background:var(--wine);color:#fff;border-color:var(--wine)}
+.row{background:var(--card);border:1px solid rgba(169,135,68,.5);padding:12px 14px;margin-bottom:8px;display:grid;grid-template-columns:1fr auto;gap:2px 12px}
+.row .nm{font-size:21px;font-weight:600}
+.tag{align-self:start;font-weight:600;color:var(--ok);white-space:nowrap}
+.tag.no{color:#b3261e}
+.row .wish{grid-column:1/-1;font-style:italic;color:var(--soft);overflow-wrap:anywhere}
+.row .meta{grid-column:1;font-size:14px;color:var(--soft)}
+.row .x{grid-column:2;justify-self:end;background:none;border:0;color:#b3261e;cursor:pointer;font-size:14px}
+.empty{text-align:center;color:var(--soft);padding:30px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div id="login">
+    <h1>Admin</h1>
+    <p class="sub">Samandarhon &amp; Zilolahon</p>
+    <input id="pw" type="password" inputmode="numeric" autocomplete="current-password" placeholder="Parol" aria-label="Parol">
+    <button class="btn" id="go">Kirish</button>
+    <p class="err" id="lerr" role="alert"></p>
+  </div>
+
+  <div id="panel">
+    <h1>Mehmonlar javoblari</h1>
+    <p class="sub">Samandarhon &amp; Zilolahon — 22-noyabr, 2026</p>
+    <div class="stats">
+      <div class="stat ok"><b id="sPeople">0</b><small>Keladigan mehmonlar</small></div>
+      <div class="stat"><b id="sYes">0</b><small>“Kelaman” javoblari</small></div>
+      <div class="stat"><b id="sNo">0</b><small>Kela olmaydi</small></div>
+      <div class="stat"><b id="sAll">0</b><small>Jami javoblar</small></div>
+    </div>
+    <div class="bar">
+      <input id="q" type="search" placeholder="Ism boʻyicha qidirish" aria-label="Qidirish">
+      <button class="btn alt" id="ref">Yangilash</button>
+      <button class="btn alt" id="csv">CSV yuklab olish</button>
+      <button class="btn alt" id="out">Chiqish</button>
+    </div>
+    <div class="tabs" role="group" aria-label="Filtr">
+      <button data-f="all" aria-pressed="true">Hammasi</button>
+      <button data-f="yes" aria-pressed="false">Keladi</button>
+      <button data-f="no" aria-pressed="false">Kelmaydi</button>
+    </div>
+    <div id="list"></div>
+  </div>
+</div>
+<script>
+var $=function(i){return document.getElementById(i)},K='admin-token',tok='',data=[],filt='all';
+try{tok=sessionStorage.getItem(K)||''}catch(e){}
+function api(u,o){o=o||{};o.headers=Object.assign({'Content-Type':'application/json',Authorization:'Bearer '+tok},o.headers||{});return fetch(u,o)}
+function show(on){$('login').style.display=on?'none':'block';$('panel').style.display=on?'block':'none'}
+function apiDown(status){
+  return 'API topilmadi (HTTP '+status+'). Netlify Functions ishlamayapti: loyiha GitHub orqali, netlify papkasi bilan deploy qilinganini va Netlify → Functions boʻlimida "api" funksiyasi borligini tekshiring.';
+}
+function login(){
+  $('lerr').textContent='';
+  fetch('/api/admin/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('pw').value})})
+  .then(function(r){return r.text().then(function(t){var j=null;try{j=JSON.parse(t)}catch(e){}return[r.ok,j,r.status]})})
+  .then(function(a){
+    if(!a[1]){$('lerr').textContent=apiDown(a[2]);return}
+    if(!a[0]){$('lerr').textContent=a[1].error||'Xatolik';return}
+    tok=a[1].token;try{sessionStorage.setItem(K,tok)}catch(e){}$('pw').value='';load()})
+  .catch(function(){$('lerr').textContent='Internet yoki server bilan aloqa yoʻq. Qayta urinib koʻring.'});
+}
+function load(){
+  api('/api/admin/rsvps').then(function(r){if(r.status===401){tok='';show(false);return null}return r.json()})
+  .then(function(j){if(!j)return;data=j;show(true);render()})
+  .catch(function(){alert('Serverga ulanib boʻlmadi')});
+}
+function fmt(s){var d=new Date(s);return isNaN(d)?'':d.toLocaleString('uz-UZ',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'})}
+function render(){
+  var yes=data.filter(function(r){return r.attend==='yes'}),no=data.length-yes.length;
+  $('sPeople').textContent=yes.reduce(function(a,r){return a+(r.guests||1)},0);
+  $('sYes').textContent=yes.length;$('sNo').textContent=no;$('sAll').textContent=data.length;
+  var q=$('q').value.trim().toLowerCase(),box=$('list');box.textContent='';
+  var rows=data.filter(function(r){return(filt==='all'||r.attend===filt)&&(!q||r.name.toLowerCase().indexOf(q)>-1)});
+  if(!rows.length){var e=document.createElement('p');e.className='empty';e.textContent=data.length?'Hech narsa topilmadi':'Hozircha javoblar yoʻq';box.appendChild(e);return}
+  rows.forEach(function(r){
+    var d=document.createElement('div');d.className='row';
+    function add(c,t){var x=document.createElement('div');x.className=c;x.textContent=t;d.appendChild(x);return x}
+    add('nm',r.name);
+    var t=add('tag'+(r.attend==='yes'?'':' no'),r.attend==='yes'?'Keladi · '+r.guests+' kishi':'Kela olmaydi');
+    if(r.wish)add('wish','“'+r.wish+'”');
+    add('meta',fmt(r.at)+(r.to?' · '+r.to:''));
+    var b=document.createElement('button');b.className='x';b.textContent='Oʻchirish';
+    b.onclick=function(){if(confirm(r.name+' javobini oʻchirasizmi?'))api('/api/admin/rsvps/'+r.id,{method:'DELETE'}).then(load)};
+    d.appendChild(b);box.appendChild(d);
+  });
+}
+function csv(){
+  var esc=function(v){return '"'+String(v==null?'':v).replace(/"/g,'""')+'"'};
+  var out=['Ism,Javob,Kishi soni,Tilak,Sana'].concat(data.map(function(r){return[r.name,r.attend==='yes'?'Keladi':'Kelmaydi',r.guests,r.wish,r.at].map(esc).join(',')}));
+  var a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['\ufeff'+out.join('\n')],{type:'text/csv'}));a.download='mehmonlar.csv';a.click();
+}
+$('go').onclick=login;$('pw').onkeydown=function(e){if(e.key==='Enter')login()};
+$('ref').onclick=load;$('csv').onclick=csv;$('q').oninput=render;
+$('out').onclick=function(){tok='';try{sessionStorage.removeItem(K)}catch(e){}show(false)};
+document.querySelectorAll('.tabs button').forEach(function(b){b.onclick=function(){filt=b.dataset.f;document.querySelectorAll('.tabs button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});render()}});
+if(tok)load();
+</script>
+</body>
+</html>

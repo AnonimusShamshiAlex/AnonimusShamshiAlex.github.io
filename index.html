@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="uz-Latn">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#efe9dc" />
+    <title>Samandarhon &amp; Zilolahon — Taklifnoma</title>
+    <meta name="description" content="Samandarhon va Zilolahonning nikoh to‘yiga taklifnoma. 22-noyabr, 2026-yil." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Taklifnoma" />
+    <meta property="og:locale" content="uz_UZ" />
+    <meta property="og:title" content="Samandarhon &amp; Zilolahon — Taklifnoma" />
+    <meta property="og:description" content="Sizga maktub bor. Muhrni bosib oching. 22-noyabr, 2026 · Sulola to‘yxonasi" />
+    <meta property="og:url" content="__ORIGIN__/" />
+    <meta property="og:image" content="__ORIGIN__/styles/maktub/media/og.jpg?v=2" />
+    <meta property="og:image:secure_url" content="__ORIGIN__/styles/maktub/media/og.jpg?v=2" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Samandarhon & Zilolahon — taklifnoma" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="__ORIGIN__/styles/maktub/media/og.jpg?v=2" />
+    <link rel="icon" href="data:," />
+    <!-- The first thing a guest sees: load it before anything else -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&display=swap"
+    />
+    <link rel="stylesheet" href="styles/maktub/maktub.css" />
+  </head>
+  <body class="is-intro">
+    <div class="lang" data-lang-toggle></div>
+
+    <!-- ============ Opening: a filmed envelope. Tap → it opens into light ============ -->
+    <div class="intro" id="intro" role="button" tabindex="0" aria-label="Taklifnomani ochish">
+      <div class="intro__fill" aria-hidden="true"></div>
+      <div class="intro__frame" id="introFrame">
+        <video
+          class="intro__video"
+          id="openVid"
+          src="styles/maktub/media/open.mp4"
+          poster="styles/maktub/media/open-poster.jpg"
+          muted
+          playsinline
+          webkit-playsinline
+          preload="auto"
+          disablepictureinpicture
+          aria-hidden="true"
+        ></video>
+        <div class="intro__pulse" aria-hidden="true"><i></i><i></i></div>
+        <p class="intro__to" data-d="guest.greeting"></p>
+        <p class="intro__hint">
+          <span class="intro__hint-line"></span>
+          <span>Ochish uchun muhrga bosing</span>
+          <span class="intro__hint-line"></span>
+        </p>
+      </div>
+    </div>
+
+    <main class="page" id="page">
+      <!-- ============ Hero: a living painting ============ -->
+      <section class="hero" id="hero">
+        <div class="hero__fill" aria-hidden="true"></div>
+        <div class="hero__frame">
+          <video
+            class="hero__video"
+            id="ambVid"
+            poster="styles/maktub/media/amb-poster.jpg"
+            muted
+            loop
+            playsinline
+            webkit-playsinline
+            preload="none"
+            disablepictureinpicture
+            aria-hidden="true"
+          ></video>
+          <div class="hero__veil" aria-hidden="true"></div>
+          <div class="hero__text">
+            <p class="hero__kicker" data-h data-d="words.label">Nikoh toʻyi</p>
+            <h1 class="names">
+              <span class="names__one" data-h data-d="names.0"></span>
+              <span class="names__amp" data-h data-if="names.1">&amp;</span>
+              <span class="names__two" data-h data-if="names.1" data-d="names.1"></span>
+            </h1>
+            <p class="hero__date" data-h>
+              <span data-d="date.dd"></span><i></i><span data-d="date.mm"></span><i></i><span data-d="date.year"></span>
+            </p>
+          </div>
+          <a class="cue" href="#invite" data-h>
+            <span>Pastga suring</span>
+            <svg class="cue__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9.5l6 6 6-6" /></svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ Invitation ============ -->
+      <section class="section invite" id="invite">
+        <img class="flora flora--tl" src="styles/maktub/media/flora.webp" alt="" aria-hidden="true" />
+        <img class="flora flora--tr" src="styles/maktub/media/flora.webp" alt="" aria-hidden="true" />
+        <p class="invite__greet" data-reveal data-d="guest.greeting"></p>
+        <p class="invite__text" data-reveal data-d="invitation.text"></p>
+        <img class="divider" src="styles/maktub/media/divider.webp" alt="" aria-hidden="true" data-reveal />
+        <div class="parents" data-hosts data-if="hosts" data-reveal></div>
+        <p class="invite__quote" data-if="invitation.quote" data-reveal data-d="invitation.quote"></p>
+      </section>
+
+      <!-- ============ Date ============ -->
+      <section class="section date" id="date">
+        <header class="head" data-reveal>
+          <h2 class="title" data-d="words.day">Toʻy kuni</h2>
+          <img class="divider" src="styles/maktub/media/divider.webp" alt="" aria-hidden="true" loading="lazy" />
+        </header>
+        <div class="bigdate" data-reveal>
+          <span class="bigdate__side" data-d="date.Weekday"></span>
+          <span class="bigdate__day" data-d="date.day"></span>
+          <span class="bigdate__side"><span data-d="date.Month"></span> <span data-d="date.year"></span></span>
+        </div>
+        <p class="bigdate__time" data-reveal>soat <span data-d="date.time"></span> da</p>
+        <div class="cal" id="cal" data-reveal></div>
+        <div class="cd" id="countdown" data-reveal>
+          <p class="cd__label" data-d="words.until">Toʻyga qadar</p>
+          <div class="cd__row">
+            <div class="cd__cell"><span class="cd__num" data-cd="days">0</span><span class="cd__unit">kun</span></div>
+            <div class="cd__cell"><span class="cd__num" data-cd="hours">00</span><span class="cd__unit">soat</span></div>
+            <div class="cd__cell"><span class="cd__num" data-cd="minutes">00</span><span class="cd__unit">daqiqa</span></div>
+            <div class="cd__cell"><span class="cd__num" data-cd="seconds">00</span><span class="cd__unit">soniya</span></div>
+          </div>
+          <p class="cd__past" data-d="words.arrived">Toʻy kuni keldi!</p>
+        </div>
+        <button class="btn" type="button" data-ics data-reveal>
+          <span class="btn__ico" data-icon="calendar"></span>
+          <span>Taqvimga qoʻshish</span>
+        </button>
+      </section>
+
+      <!-- ============ Program ============ -->
+      <section class="section program" id="program" data-if="agenda">
+        <img class="flora flora--tr" src="styles/maktub/media/flora.webp" alt="" aria-hidden="true" loading="lazy" />
+        <header class="head" data-reveal>
+          <h2 class="title">Kun tartibi</h2>
+          <img class="divider" src="styles/maktub/media/divider.webp" alt="" aria-hidden="true" loading="lazy" />
+        </header>
+        <ol class="timeline" id="timeline"></ol>
+      </section>
+
+      <!-- ============ Venue ============ -->
+      <section class="section venue" id="venue">
+        <header class="head" data-reveal>
+          <h2 class="title">Manzil</h2>
+          <img class="divider" src="styles/maktub/media/divider.webp" alt="" aria-hidden="true" loading="lazy" />
+        </header>
+        <img class="venue__art" src="styles/maktub/media/venue.webp" alt="" aria-hidden="true" data-reveal loading="lazy" />
+        <h3 class="venue__name" data-reveal data-d="venue.name"></h3>
+        <p class="venue__hall" data-if="venue.hall" data-reveal data-d="venue.hall"></p>
+        <p class="venue__addr" data-if="venue.address" data-reveal>
+          <span data-d="venue.address"></span><br data-if="venue.landmark" />
+          <span class="venue__mark" data-if="venue.landmark" data-d="venue.landmark"></span>
+        </p>
+        <div class="venue__btns" data-reveal><a class="btn btn--solid" href="https://maps.app.goo.gl/Mv6rvik9eecatGZR8" target="_blank" rel="noopener"><span class="btn__ico" data-icon="pin"></span><span data-no-tr>Google Maps</span></a></div>
+        <div class="mapcard" data-if="venue.lat" data-reveal>
+          <div class="map" id="map">
+            <div class="map__fallback"><span data-d="venue.name"></span></div>
+          </div>
+        </div>
+        <div class="venue__btns" data-if="venue.lat" data-reveal>
+          <a class="btn btn--solid" data-href="yandex" target="_blank" rel="noopener">
+            <span class="btn__ico" data-icon="route"></span>
+            <span data-cyr="Яндекс Хариталар">Yandex Xaritalar</span>
+          </a>
+          <a class="btn" data-href="google" target="_blank" rel="noopener">
+            <span class="btn__ico" data-icon="pin"></span>
+            <span data-no-tr>Google Maps</span>
+          </a>
+        </div>
+      </section>
+
+      <!-- ============ RSVP ============ -->
+      <section class="section rsvp" id="rsvp" data-if="rsvp">
+        <header class="head" data-reveal>
+          <h2 class="title">Javob xati</h2>
+          <img class="divider" src="styles/maktub/media/divider.webp" alt="" aria-hidden="true" loading="lazy" />
+          <p class="rsvp__by" data-if="rsvp.deadline">Iltimos, <span data-d="rsvp.deadline"></span> javob bering</p>
+        </header>
+        <div class="reply" id="reply" data-if="rsvp.form" data-reveal>
+          <form class="form" id="rsvpForm">
+            <label class="field">
+              <span class="field__label">Ismingiz</span>
+              <input name="name" type="text" autocomplete="name" placeholder="Masalan: Aziz Rahimov" data-ph="words.name" required />
+            </label>
+            <div class="field">
+              <span class="field__label">Kelasizmi?</span>
+              <div class="choice">
+                <label><input type="radio" name="attend" value="yes" checked /><span>Albatta kelaman</span></label>
+                <label><input type="radio" name="attend" value="no" /><span>Afsuski, kela olmayman</span></label>
+              </div>
+            </div>
+            <div class="field field--row">
+              <span class="field__label">Necha kishi?</span>
+              <div class="stepper">
+                <button type="button" data-step="-1" aria-label="Kamaytirish">−</button>
+                <input name="guests" type="number" min="1" max="10" value="1" inputmode="numeric" aria-label="Mehmonlar soni" />
+                <button type="button" data-step="1" aria-label="Koʻpaytirish">+</button>
+              </div>
+            </div>
+            <label class="field">
+              <span class="field__label">Tilaklaringiz</span>
+              <textarea name="wish" rows="2" placeholder="Kelin-kuyovga ezgu tilaklar…" data-ph="words.wish"></textarea>
+            </label>
+            <button class="btn btn--solid btn--wide" type="submit">Javobni yuborish</button>
+          </form>
+          <!-- After sending, the couple's seal is stamped onto the reply -->
+          <div class="sent" aria-live="polite">
+            <img class="sent__seal" src="styles/maktub/media/seal.webp" alt="" aria-hidden="true" loading="lazy" />
+            <p class="sent__title">Rahmat!</p>
+            <p class="sent__text" data-d="words.sent">Javobingiz qabul qilindi. Sizni toʻyimizda intizorlik bilan kutamiz.</p>
+          </div>
+        </div>
+        <a class="tg" data-if="rsvp.telegram" data-href="telegram" target="_blank" rel="noopener" data-reveal>
+          <span class="btn__ico" data-icon="telegram"></span>
+          <span>Telegram orqali javob berish</span>
+        </a>
+      </section>
+
+      <!-- ============ Closing: another living painting ============ -->
+      <section class="closing" id="closing">
+        <div class="closing__fill" aria-hidden="true"></div>
+        <div class="closing__frame">
+          <video
+            class="closing__video"
+            id="closeVid"
+            poster="styles/maktub/media/close-poster.jpg"
+            muted
+            loop
+            playsinline
+            webkit-playsinline
+            preload="none"
+            disablepictureinpicture
+            aria-hidden="true"
+          ></video>
+          <div class="closing__veil" aria-hidden="true"></div>
+          <div class="closing__text">
+            <p class="closing__wait" data-reveal>Sizni kutamiz!</p>
+            <p class="closing__names" data-reveal>
+              <span data-d="names.0"></span> <span class="closing__amp" data-if="names.1">&amp;</span> <span data-if="names.1" data-d="names.1"></span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <footer class="footer">
+        <img class="footer__seal" src="styles/maktub/media/seal.webp" alt="" aria-hidden="true" data-reveal loading="lazy" />
+        <p class="footer__sign" data-reveal data-d="invitation.signature"></p>
+        <p class="footer__tag" data-if="hashtag" data-reveal data-no-tr data-d="hashtag"></p>
+      </footer>
+    </main>
+
+    <script>window.INVITE = {"event": "wedding", "names": ["Samandarhon", "Zilolahon"], "hosts": [{"label": "Toʻy egalari", "names": "Usmonovlar"}], "date": "2026-11-22T18:00:00+05:00", "invitation": {"greeting": "Hurmatli mehmonimiz!", "text": "Sizni Samandarhon va Zilolahonning nikoh to'yi marosimiga lutfan taklif etamiz. Quvonchli kunimizni siz bilan birga nishonlashdan mamnun bo'lamiz.", "signature": "Hurmat bilan, Usmonovlar oilasi", "quote": "Ikki qalb — bir taqdir"}, "venue": {"name": "Sulola to'yxonasi"}, "agenda": [{"time": "18:00", "title": "Mehmonlarni kutib olish", "icon": "karnay"}, {"time": "19:00", "title": "Kelin-kuyovning kirib kelishi", "icon": "couple"}, {"time": "19:30", "title": "Ziyofat va tabriklar", "icon": "feast"}, {"time": "21:00", "title": "Raqslar va musiqa", "icon": "music"}], "rsvp": {"telegram": "", "form": true}, "hashtag": "#SamandarhonZilolahon", "slug": "samandarhon-zilolahon", "initials": ["S", "Z"], "music": {"autoplay": true, "volume": 0.7, "src": "music/muzika.m4a", "title": "Taklifnoma", "artist": ""}, "words": {"label": "Nikoh toʻyi", "ics": "Samandarhon va Zilolahon toʻyi"}};</script>
+    <script src="shared/icons.js"></script>
+    <script src="shared/core.js"></script>
+    <script src="shared/film.js"></script>
+    <script src="shared/page.js"></script>
+    <script src="styles/maktub/maktub.js"></script>
+</body>
+</html>
